@@ -1,5 +1,6 @@
 package com.memomas.springboot.backend.apirest.models.service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class TransactionService {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> findAllTransactions(Long userId){
+		List<Transaction> transactions = transactionRepository.findAllTransactionsByUser_UserId(userId);
+		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
 	}
 }

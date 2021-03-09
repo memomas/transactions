@@ -18,4 +18,9 @@ public class TransactionRestController {
 	public ResponseEntity<?> findTransactionById(@PathVariable String transactionId, @PathVariable Long userId) {
 		return transactionService.findTransactionByTransactionId(transactionId, userId);
 	}
+	
+	@GetMapping("/transactions/user/{userId}")
+	public ResponseEntity<?> findAllTransactions(@PathVariable Long userId){
+		return transactionService.findAllTransactions(userId);
+	}
 }
