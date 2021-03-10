@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.memomas.springboot.backend.apirest.utils.UtilMethods;
 
 @Entity
 @Table(name="transactions")
@@ -41,6 +42,7 @@ public class Transaction implements Serializable{
 	@PrePersist
 	public void prePersist() {
 		createAt = new Date();
+		transactionId = UtilMethods.generateUUID();
 	}
 	
 	

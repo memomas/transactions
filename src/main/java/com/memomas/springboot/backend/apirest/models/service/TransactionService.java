@@ -66,7 +66,6 @@ public class TransactionService {
 			transaction.setUser(user);
 			transaction.setAmount(transactionDTO.getAmount());
 			transaction.setDescription(transactionDTO.getDescription());
-			transaction.setTransactionId("generateMethod");
 			transactionRepository.save(transaction);
 		}catch(DataAccessException e){
 			response.put("message", "Error establishing a database connection");
