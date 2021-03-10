@@ -8,12 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.memomas.springboot.backend.apirest.models.entity.Transaction;
+import com.memomas.springboot.backend.apirest.models.entity.TransactionDTO;
+import com.memomas.springboot.backend.apirest.models.entity.User;
 import com.memomas.springboot.backend.apirest.models.repository.TransactionRepository;
+import com.memomas.springboot.backend.apirest.models.repository.UserRepository;
 
 @Service
 public class TransactionService {
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public ResponseEntity<?> findTransactionByTransactionId(String transactionId, Long userId) {
 		Transaction transaction = null;
@@ -47,5 +53,26 @@ public class TransactionService {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
+	}
+	
+	
+	public ResponseEntity<?> saveTransaction(TransactionDTO transactionDTO, Long userId){
+		Map<String, Object> response = new HashMap<>();
+		User user = null;
+		Transaction transaction = null;
+		try {
+			user = userRepository.findUserByUserId(userId);
+			transaction = new Transaction();
+			transaction.setUser(user);
+			transaction.setAmount(transactionDTO.getAmount());
+			transaction.setDescription(transactionDTO.getDescription());
+			transaction.setTransactionId("generateMethod");
+			transactionRepository.save(transaction);
+		}catch(DataAccessException e){
+			response.put("message", "Error establishing a database connection");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Transaction>(transaction, HttpStatus.CREATED);
 	}
 }
