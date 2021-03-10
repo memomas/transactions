@@ -36,4 +36,9 @@ public class TransactionRestController {
 	public ResponseEntity<?> sumAllTransactions(@PathVariable Long userId){
 		return transactionService.sumAllTransactions(userId);
 	}
+	
+	@GetMapping("/transactions/random")
+	public ResponseEntity<?> findRandomTransaction(){
+		return transactionService.findRandomTransaction();
+	}
 }

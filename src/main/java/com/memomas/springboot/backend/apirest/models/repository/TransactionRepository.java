@@ -11,4 +11,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long>{
 	List<Transaction> findAllTransactionsByUser_UserId(Long userId);
 	@Query("select sum(t.amount) from Transaction t where t.user.userId = :userId")
 	Double sumTransactions(Long userId);
+	@Query(value = "select * from transactions order by rand() limit 1", nativeQuery = true)
+	Transaction findRandomTransaction();
+
 }

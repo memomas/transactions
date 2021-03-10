@@ -40,6 +40,19 @@ public class TransactionService {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 	}
 	
+	public ResponseEntity<?> findRandomTransaction(){
+		Map<String, Object> response = new HashMap<>();
+		Transaction transaction = null;
+		try {
+			transaction = transactionRepository.findRandomTransaction();
+		}catch(DataAccessException e){
+			response.put("message", "Error establishing a database connection");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+	}
+	
 	public ResponseEntity<?> sumAllTransactions(Long userId){
 		Map<String, Object> response = new HashMap<>();
 		SumTransactionDTO transactionDTO = null;
