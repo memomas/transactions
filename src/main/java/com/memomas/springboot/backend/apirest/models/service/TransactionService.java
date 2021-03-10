@@ -56,7 +56,12 @@ public class TransactionService {
 	public ResponseEntity<?> sumAllTransactions(Long userId){
 		Map<String, Object> response = new HashMap<>();
 		SumTransactionDTO transactionDTO = null;
+		User user = userRepository.findUserByUserId(userId);
 		Double sum;
+		if(user == null) {
+			response.put("message", "User does not exist");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
 		try {
 			sum = transactionRepository.sumTransactions(userId);
 			transactionDTO = new SumTransactionDTO();
