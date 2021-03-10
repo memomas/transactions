@@ -7,6 +7,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.memomas.springboot.backend.apirest.models.entity.SumTransactionDTO;
 import com.memomas.springboot.backend.apirest.models.entity.Transaction;
 import com.memomas.springboot.backend.apirest.models.entity.TransactionDTO;
 import com.memomas.springboot.backend.apirest.models.entity.User;
@@ -36,6 +38,23 @@ public class TransactionService {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> sumAllTransactions(Long userId){
+		Map<String, Object> response = new HashMap<>();
+		SumTransactionDTO transactionDTO = null;
+		Double sum;
+		try {
+			sum = transactionRepository.sumTransactions(userId);
+			transactionDTO = new SumTransactionDTO();
+			transactionDTO.setSum(sum);
+			transactionDTO.setUserId(userId);
+		}catch(DataAccessException e){
+			response.put("message", "Error establishing a database connection");
+			response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<SumTransactionDTO>(transactionDTO, HttpStatus.OK);
 	}
 	
 	public ResponseEntity<?> findAllTransactions(Long userId){

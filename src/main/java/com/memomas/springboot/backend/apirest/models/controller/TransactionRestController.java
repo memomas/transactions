@@ -31,4 +31,9 @@ public class TransactionRestController {
 	public ResponseEntity<?> createTransaction(@RequestBody TransactionDTO transactionDTO, @PathVariable Long userId){
 		return transactionService.saveTransaction(transactionDTO, userId);
 	}
+	
+	@GetMapping("/transactions/user/{userId}/sum")
+	public ResponseEntity<?> sumAllTransactions(@PathVariable Long userId){
+		return transactionService.sumAllTransactions(userId);
+	}
 }
