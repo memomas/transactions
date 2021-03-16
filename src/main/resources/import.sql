@@ -4,7 +4,7 @@ INSERT INTO users (name, last_name) VALUES ('Roman', 'Soto');
 INSERT INTO users (name, last_name) VALUES ('Andres', 'Rodriguez');
 INSERT INTO users (name, last_name) VALUES ('Ricardo', 'Calderon');
 
-INSERT INTO transactions (transaction_id, amount, description, create_at, user_id) VALUES ('aac22bb21bb962f5c3fc71ef28ad95e0', 60.50, 'test transaction', '2021-01-07', 1);
+INSERT INTO transactions (transaction_id, amount, description, create_at, user_id) VALUES ('aac22bb21bb962f5c3fc71ef28ad95e0', 60.50, 'test transaction', '2021-03-07', 1);
 INSERT INTO transactions (transaction_id, amount, description, create_at, user_id) VALUES ('dfgg55yykshgdn31sd4nhgsj2340ikla', 80.00, 'test transaction2', '2021-01-08', 1);
 INSERT INTO transactions (transaction_id, amount, description, create_at, user_id) VALUES ('a704812cc1df5826d714e77edd241212', 3.14, 'tacos el marrano', '2021-02-10', 1);
 
