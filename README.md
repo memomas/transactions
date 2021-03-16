@@ -1,10 +1,6 @@
 # transactions API
 API REST Application to create and get transactions from a spring-boot backend 
 
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
 ## Usage
 
 ```bash
